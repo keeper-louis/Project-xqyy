@@ -1,0 +1,7 @@
+D:\K3Cloud4DEV\Website\Bin\Louis.K3.SCM.App.Report.dll
+D:\K3Cloud4DEV\Website\Bin\Louis.K3.SCM.App.Report.pdb
+C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Louis.K3.SCM.App.Report.dll
+C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Louis.K3.SCM.App.Report.pdb
+D:\Projects\Louis.K3.SCM.App.Report\Louis.K3.SCM.App.Report\obj\Debug\Louis.K3.SCM.App.Report.csprojResolveAssemblyReference.cache
+D:\Projects\Louis.K3.SCM.App.Report\Louis.K3.SCM.App.Report\obj\Debug\Louis.K3.SCM.App.Report.dll
+D:\Projects\Louis.K3.SCM.App.Report\Louis.K3.SCM.App.Report\obj\Debug\Louis.K3.SCM.App.Report.pdb

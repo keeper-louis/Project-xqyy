@@ -1,0 +1,4 @@
+C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\XQYY.K3.BILLEDIT.PlugIn.dll
+C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\XQYY.K3.BILLEDIT.PlugIn.pdb
+D:\Projects\XQYY.K3.BILLEDIT.PlugIn\XQYY.K3.BILLEDIT.PlugIn\obj\Debug\XQYY.K3.BILLEDIT.PlugIn.dll
+D:\Projects\XQYY.K3.BILLEDIT.PlugIn\XQYY.K3.BILLEDIT.PlugIn\obj\Debug\XQYY.K3.BILLEDIT.PlugIn.pdb
