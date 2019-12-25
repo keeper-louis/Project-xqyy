@@ -330,7 +330,7 @@ INTO {1}
                   A.UNITID,
                   A.FCUSTNO,
                   A.FCUSTNAME
-        UNION
+        UNION ALL
         --期初销售出库
         SELECT A.FFINDATE AS FFINDATE, --会计期间
                A.FCUSTNO AS FCUSTNO,--客户编号
@@ -379,7 +379,8 @@ INTO {1}
                    AND MATERIAL.FNUMBER <= '{3}'
                    AND CUST.FNUMBER >= '{4}'
                    AND CUST.FNUMBER <= '{5}'
-                   AND OUTSTOCK.FBILLTYPEID = '5518f5ceee8053') A
+                   AND OUTSTOCK.FBILLTYPEID = '5518f5ceee8053'
+                   AND OUTSTOCK.FBILLNO <> 'xs72210') A
          GROUP BY A.FFINDATE,
                   A.FMATERIALNO,
                   A.FMATERIALNAME,
@@ -388,7 +389,7 @@ INTO {1}
                   A.FCUSTNO,
                   A.FCUSTNAME
         --销售退货
-        UNION
+        UNION ALL
         SELECT A.FFINDATE AS FFINDATE, --会计期间
                A.FCUSTNO AS FCUSTNO,--客户编号
                A.FCUSTNAME AS FCUSTNAME,--客户名称
@@ -448,7 +449,7 @@ INTO {1}
                   A.UNITID,
                   A.FCUSTNO,
                   A.FCUSTNAME
-        UNION
+        UNION ALL
         --期初销售退货
         SELECT A.FFINDATE AS FFINDATE, --会计期间
                A.FCUSTNO AS FCUSTNO,--客户编号
@@ -505,7 +506,7 @@ INTO {1}
                   A.UNITID,
                   A.FCUSTNO,
                   A.FCUSTNAME
-       UNION
+       UNION ALL
        SELECT A.FFINDATE AS FFINDATE, --会计期间
        A.FCUSTNO AS FCUSTNO, --客户编号
        A.FCUSTNAME AS FCUSTNAME, --客户名称
@@ -565,7 +566,7 @@ INTO {1}
           A.UNITID,
           A.FCUSTNO,
           A.FCUSTNAME
-       UNION
+       UNION ALL
        SELECT A.FFINDATE AS FFINDATE, --会计期间
        A.FCUSTNO AS FCUSTNO, --客户编号
        A.FCUSTNAME AS FCUSTNAME, --客户名称
@@ -625,7 +626,7 @@ INTO {1}
           A.UNITID,
           A.FCUSTNO,
           A.FCUSTNAME
-        UNION
+        UNION ALL
         SELECT A.FFINDATE AS FFINDATE, --会计期间
        A.FCUSTNO AS FCUSTNO, --客户编号
        A.FCUSTNAME AS FCUSTNAME, --客户名称
@@ -685,7 +686,7 @@ INTO {1}
           A.UNITID,
           A.FCUSTNO,
           A.FCUSTNAME
-        UNION
+        UNION ALL
         SELECT A.FFINDATE AS FFINDATE, --会计期间
        A.FCUSTNO AS FCUSTNO, --客户编号
        A.FCUSTNAME AS FCUSTNAME, --客户名称
@@ -828,7 +829,7 @@ INTO {1}
                   A.FCUSTNO,
                   A.FCUSTNAME
         --销售退货
-        UNION
+        UNION ALL
         SELECT A.FFINDATE AS FFINDATE, --会计期间
                A.FCUSTNO AS FCUSTNO,--客户编号
                A.FCUSTNAME AS FCUSTNAME,--客户名称
@@ -971,7 +972,7 @@ INTO {1}
           A.UNITID,
           A.FCUSTNO,
           A.FCUSTNAME
-       UNION
+       UNION ALL
        SELECT A.FFINDATE AS FFINDATE, --会计期间
        A.FCUSTNO AS FCUSTNO, --客户编号
        A.FCUSTNAME AS FCUSTNAME, --客户名称
@@ -1031,7 +1032,7 @@ INTO {1}
           A.UNITID,
           A.FCUSTNO,
           A.FCUSTNAME
-        UNION
+        UNION ALL
         SELECT A.FFINDATE AS FFINDATE, --会计期间
        A.FCUSTNO AS FCUSTNO, --客户编号
        A.FCUSTNAME AS FCUSTNAME, --客户名称
@@ -1083,7 +1084,8 @@ INTO {1}
                        CONVERT(VARCHAR(7),
                                CONVERT(DATE, '{1}'),
                                20)
-                AND INITSTOCK.F_KD_XSFS = 103122)) A
+                AND INITSTOCK.F_KD_XSFS = 103122)
+AND AY.FSOURCETYPE = 'SAL_OUTSTOCK') A
  GROUP BY A.FFINDATE,
           A.FMATERIALNO,
           A.FMATERIALNAME,
@@ -1091,7 +1093,7 @@ INTO {1}
           A.UNITID,
           A.FCUSTNO,
           A.FCUSTNAME
-        UNION
+        UNION ALL
         SELECT A.FFINDATE AS FFINDATE, --会计期间
        A.FCUSTNO AS FCUSTNO, --客户编号
        A.FCUSTNAME AS FCUSTNAME, --客户名称
@@ -1143,7 +1145,8 @@ INTO {1}
                        CONVERT(VARCHAR(7),
                                CONVERT(DATE, '{1}'),
                                20)
-                AND INITSTOCK.F_KD_BASE = 103122)) A
+                AND INITSTOCK.F_KD_BASE = 103122)
+AND AY.FSOURCETYPE = 'SAL_RETURNSTOCK') A
  GROUP BY A.FFINDATE,
           A.FMATERIALNO,
           A.FMATERIALNAME,
@@ -1152,256 +1155,6 @@ INTO {1}
           A.FCUSTNO,
           A.FCUSTNAME) QC
  GROUP BY QC.FFINDATE, QC.FMATERIALNO, QC.FMATERIALNAME, QC.FSPE, QC.UNITID,QC.FCUSTNO,QC.FCUSTNAME", tempTable, dyFilter["F_Ls_StartDate"].ToString(), startMaterial["number"].ToString(), endMaterial["number"].ToString(), startCustomer["number"].ToString(), endCustomer["number"].ToString());
-//            String strSql_qm = String.Format(@"/*dialect*/INSERT INTO {0} SELECT QC.FFINDATE FFINDATE,
-//       QC.FCUSTNO FCUSTNO,
-//       QC.FCUSTNAME FCUSTNAME,
-//       QC.FMATERIALNO FMATERIALNO,
-//       QC.FMATERIALNAME FMATERIALNAME,
-//       QC.FSPE FSPE,
-//       QC.UNITID UNITID,
-//       0 QCQTY,
-//       0 QCPRICE,
-//       0 QCAMOUNT,
-//       0 OUTQTY, --发出数量
-//       0 OUTPRICE, --发出单价
-//       0 OUTAMOUNT, --发出金额
-//       SUM(QC.QCQTY) QMQTY, --期末数量
-//       CASE
-//         WHEN SUM(QC.QCAMOUNT) <> 0 THEN
-//          SUM(QC.QCAMOUNT) / SUM(QC.QCQTY)
-//         ELSE
-//          0
-//       END QMPRICE, --期末单价
-//       SUM(QC.QCAMOUNT) QMAMOUNT --期末金额
-//  FROM (SELECT A.FFINDATE AS FFINDATE, --会计期间
-//               A.FCUSTNO AS FCUSTNO,--客户编号
-//               A.FCUSTNAME AS FCUSTNAME,--客户名称
-//               A.FMATERIALNO AS FMATERIALNO, --物料编码
-//               A.FMATERIALNAME AS FMATERIALNAME, --物料名称
-//               A.FSPE AS FSPE, --规格型号
-//               A.UNITID AS UNITID, --计量单位
-//               SUM(A.QCQTY) AS QCQTY, --期初数量
-//               SUM(A.QCAMOUNT) AS QCAMOUNT --期初金额
-//          FROM (SELECT CONVERT(VARCHAR(7),
-//                               CONVERT(DATE,'{1}'),
-//                               20) AS FFINDATE, --会计期间
-//                       CUST.FNUMBER AS FCUSTNO,--客户编号
-//                       CUST_L.FNAME AS FCUSTNAME,--客户名称
-//                       MATERIAL.FNUMBER AS FMATERIALNO, --物料编码
-//                       MATERIAL_L.FNAME AS FMATERIALNAME, --物料名称
-//                       MATERIAL_L.FSPECIFICATION AS FSPE, --规格型号
-//                       UNIT_L.FNAME AS UNITID, --计量单位
-//                       OUTENTRY.FREALQTY - OUTENTRY_R.FARJOINQTY AS QCQTY, --期初数量
-//                       ((OUTENTRY.FREALQTY - OUTENTRY_R.FARJOINQTY) *
-//                       OUTENTRY_F.FSALCOSTPRICE) AS QCAMOUNT --期初余额
-//                  FROM T_SAL_OUTSTOCK OUTSTOCK
-//                 INNER JOIN T_SAL_OUTSTOCKENTRY OUTENTRY
-//                    ON OUTSTOCK.FID = OUTENTRY.FID
-//                 INNER JOIN T_SAL_OUTSTOCKENTRY_F OUTENTRY_F
-//                    ON OUTENTRY_F.FENTRYID = OUTENTRY.FENTRYID
-//                 INNER JOIN T_SAL_OUTSTOCKENTRY_R OUTENTRY_R
-//                    ON OUTENTRY_R.FENTRYID = OUTENTRY.FENTRYID
-//                 INNER JOIN T_BD_CUSTOMER CUST
-//                    ON CUST.FCUSTID  = OUTSTOCK.FCUSTOMERID
-//                 INNER JOIN T_BD_CUSTOMER_L CUST_L
-//                    ON CUST_L.FCUSTID = CUST.FCUSTID
-//                 INNER JOIN T_BD_MATERIAL MATERIAL
-//                    ON MATERIAL.FMASTERID = OUTENTRY.FMATERIALID
-//                 INNER JOIN T_BD_MATERIAL_L MATERIAL_L
-//                    ON MATERIAL_L.FMATERIALID = MATERIAL.FMATERIALID
-//                 INNER JOIN T_BD_MATERIALBASE MATERIALBASE
-//                    ON MATERIALBASE.FMATERIALID = MATERIAL.FMATERIALID
-//                 INNER JOIN T_BD_UNIT UNIT
-//                    ON UNIT.FUNITID = MATERIALBASE.FBASEUNITID
-//                 INNER JOIN T_BD_UNIT_L UNIT_L
-//                    ON UNIT_L.FUNITID = UNIT.FUNITID
-//                 WHERE OUTSTOCK.F_KD_XSFS = 103122
-//                   AND CONVERT(VARCHAR(7), OUTSTOCK.FDATE, 20) <=
-//                       CONVERT(VARCHAR(7),
-//                               CONVERT(DATE, '{1}'),
-//                               20)
-//                   AND MATERIAL.FNUMBER >= '{2}'
-//                   AND MATERIAL.FNUMBER <= '{3}'
-//                   AND CUST.FNUMBER >= '{4}'
-//                   AND CUST.FNUMBER <= '{5}') A
-//         GROUP BY A.FFINDATE,
-//                  A.FMATERIALNO,
-//                  A.FMATERIALNAME,
-//                  A.FSPE,
-//                  A.UNITID,
-//                  A.FCUSTNO,
-//                  A.FCUSTNAME
-//        UNION
-//        --期初销售出库
-//        SELECT A.FFINDATE AS FFINDATE, --会计期间
-//               A.FCUSTNO AS FCUSTNO,--客户编号
-//               A.FCUSTNAME AS FCUSTNAME,--客户名称
-//               A.FMATERIALNO AS FMATERIALNO, --物料编码
-//               A.FMATERIALNAME AS FMATERIALNAME, --物料名称
-//               A.FSPE AS FSPE, --规格型号
-//               A.UNITID AS UNITID, --计量单位
-//               SUM(A.QCQTY) AS QCQTY, --期初数量
-//               SUM(A.QCAMOUNT) AS QCAMOUNT --期初金额
-//          FROM (SELECT CONVERT(VARCHAR(7),
-//                               CONVERT(DATE, '{1}'),
-//                               20) AS FFINDATE, --会计期间
-//                       CUST.FNUMBER AS FCUSTNO,--客户编号
-//                       CUST_L.FNAME AS FCUSTNAME,--客户名称
-//                       MATERIAL.FNUMBER AS FMATERIALNO, --物料编码
-//                       MATERIAL_L.FNAME AS FMATERIALNAME, --物料名称
-//                       MATERIAL_L.FSPECIFICATION AS FSPE, --规格型号
-//                       UNIT_L.FNAME AS UNITID, --计量单位
-//                       OUTENTRY.FREALQTY AS QCQTY, --期初数量
-//                       (OUTENTRY.FREALQTY * OUTENTRY_F.FSALCOSTPRICE) AS QCAMOUNT --期初余额
-//                  FROM T_SAL_INITOUTSTOCK OUTSTOCK
-//                 INNER JOIN T_SAL_INITOUTSTOCKENTRY OUTENTRY
-//                    ON OUTSTOCK.FID = OUTENTRY.FID
-//                 INNER JOIN T_SAL_INITOUTSTOCKENTRY_F OUTENTRY_F
-//                    ON OUTENTRY_F.FENTRYID = OUTENTRY.FENTRYID
-//                 INNER JOIN T_SAL_INITOUTSTOCKENTRY_R OUTENTRY_R
-//                    ON OUTENTRY_R.FENTRYID = OUTENTRY.FENTRYID
-//                 INNER JOIN T_BD_CUSTOMER CUST
-//                    ON CUST.FCUSTID  = OUTSTOCK.FCUSTOMERID
-//                 INNER JOIN T_BD_CUSTOMER_L CUST_L
-//                    ON CUST_L.FCUSTID = CUST.FCUSTID
-//                 INNER JOIN T_BD_MATERIAL MATERIAL
-//                    ON MATERIAL.FMASTERID = OUTENTRY.FMATERIALID
-//                 INNER JOIN T_BD_MATERIAL_L MATERIAL_L
-//                    ON MATERIAL_L.FMATERIALID = MATERIAL.FMATERIALID
-//                 INNER JOIN T_BD_MATERIALBASE MATERIALBASE
-//                    ON MATERIALBASE.FMATERIALID = MATERIAL.FMATERIALID
-//                 INNER JOIN T_BD_UNIT UNIT
-//                    ON UNIT.FUNITID = MATERIALBASE.FBASEUNITID
-//                 INNER JOIN T_BD_UNIT_L UNIT_L
-//                    ON UNIT_L.FUNITID = UNIT.FUNITID
-//                 WHERE MATERIAL.FNUMBER >= '{2}'
-//                   AND MATERIAL.FNUMBER <= '{3}'
-//                   AND CUST.FNUMBER >= '{4}'
-//                   AND CUST.FNUMBER <= '{5}'
-//                   AND OUTSTOCK.FBILLTYPEID = '5518f5ceee8053') A
-//         GROUP BY A.FFINDATE,
-//                  A.FMATERIALNO,
-//                  A.FMATERIALNAME,
-//                  A.FSPE,
-//                  A.UNITID,
-//                  A.FCUSTNO,
-//                  A.FCUSTNAME
-//        --销售退货
-//        UNION
-//        SELECT A.FFINDATE AS FFINDATE, --会计期间
-//               A.FCUSTNO AS FCUSTNO,--客户编号
-//               A.FCUSTNAME AS FCUSTNAME,--客户名称
-//               A.FMATERIALNO AS FMATERIALNO, --物料编码
-//               A.FMATERIALNAME AS FMATERIALNAME, --物料名称
-//               A.FSPE AS FSPE, --规格型号
-//               A.UNITID AS UNITID, --计量单位
-//               -SUM(A.QCQTY) AS QCQTY, --期初数量
-//               -SUM(A.QCAMOUNT) AS QCAMOUNT --期初金额
-//          FROM (SELECT CONVERT(VARCHAR(7),
-//                               CONVERT(DATE, '{1}'),
-//                               20) AS FFINDATE, --会计期间
-//                       CUST.FNUMBER AS FCUSTNO,--客户编号
-//                       CUST_L.FNAME AS FCUSTNAME,--客户名称
-//                       MATERIAL.FNUMBER AS FMATERIALNO, --物料编码
-//                       MATERIAL_L.FNAME AS FMATERIALNAME, --物料名称
-//                       MATERIAL_L.FSPECIFICATION AS FSPE, --规格型号
-//                       UNIT_L.FNAME AS UNITID, --计量单位
-//                       OUTENTRY.FREALQTY - OUTENTRY_R.FINVOICEDQTY AS QCQTY, --期初数量
-//                       ((OUTENTRY.FREALQTY - OUTENTRY_R.FINVOICEDQTY) *
-//                       OUTENTRY_F.FSALCOSTPRICE) AS QCAMOUNT --期初余额
-//                  FROM T_SAL_RETURNSTOCK OUTSTOCK
-//                 INNER JOIN T_SAL_RETURNSTOCKENTRY OUTENTRY
-//                    ON OUTSTOCK.FID = OUTENTRY.FID
-//                 INNER JOIN T_SAL_RETURNSTOCKENTRY_F OUTENTRY_F
-//                    ON OUTENTRY_F.FENTRYID = OUTENTRY.FENTRYID
-//                 INNER JOIN T_SAL_RETURNSTOCKENTRY_R OUTENTRY_R
-//                    ON OUTENTRY_R.FENTRYID = OUTENTRY.FENTRYID
-//                 INNER JOIN T_BD_CUSTOMER CUST
-//                    ON CUST.FCUSTID  = OUTSTOCK.FRETCUSTID
-//                 INNER JOIN T_BD_CUSTOMER_L CUST_L
-//                    ON CUST_L.FCUSTID = CUST.FCUSTID
-//                 INNER JOIN T_BD_MATERIAL MATERIAL
-//                    ON MATERIAL.FMASTERID = OUTENTRY.FMATERIALID
-//                 INNER JOIN T_BD_MATERIAL_L MATERIAL_L
-//                    ON MATERIAL_L.FMATERIALID = MATERIAL.FMATERIALID
-//                 INNER JOIN T_BD_MATERIALBASE MATERIALBASE
-//                    ON MATERIALBASE.FMATERIALID = MATERIAL.FMATERIALID
-//                 INNER JOIN T_BD_UNIT UNIT
-//                    ON UNIT.FUNITID = MATERIALBASE.FBASEUNITID
-//                 INNER JOIN T_BD_UNIT_L UNIT_L
-//                    ON UNIT_L.FUNITID = UNIT.FUNITID
-//                 WHERE OUTSTOCK.F_KD_BASE = 103122
-//                   AND CONVERT(VARCHAR(7), OUTSTOCK.FDATE, 20) <=
-//                       CONVERT(VARCHAR(7),
-//                               CONVERT(DATE, '{1}'),
-//                               20)
-//                   AND MATERIAL.FNUMBER >= '{2}'
-//                   AND MATERIAL.FNUMBER <= '{3}'
-//                   AND CUST.FNUMBER >= '{4}'
-//                   AND CUST.FNUMBER <= '{5}') A
-//         GROUP BY A.FFINDATE,
-//                  A.FMATERIALNO,
-//                  A.FMATERIALNAME,
-//                  A.FSPE,
-//                  A.UNITID,
-//                  A.FCUSTNO,
-//                  A.FCUSTNAME
-//        UNION
-//        --期初销售退货
-//        SELECT A.FFINDATE AS FFINDATE, --会计期间
-//               A.FCUSTNO AS FCUSTNO,--客户编号
-//               A.FCUSTNAME AS FCUSTNAME,--客户名称
-//               A.FMATERIALNO AS FMATERIALNO, --物料编码
-//               A.FMATERIALNAME AS FMATERIALNAME, --物料名称
-//               A.FSPE AS FSPE, --规格型号
-//               A.UNITID AS UNITID, --计量单位
-//               -SUM(A.QCQTY) AS QCQTY, --期初数量
-//               -SUM(A.QCAMOUNT) AS QCAMOUNT --期初金额
-//          FROM (SELECT CONVERT(VARCHAR(7),
-//                               CONVERT(DATE, '{1}'),
-//                               20) AS FFINDATE, --会计期间
-//                       CUST.FNUMBER AS FCUSTNO,--客户编号
-//                       CUST_L.FNAME AS FCUSTNAME,--客户名称
-//                       MATERIAL.FNUMBER AS FMATERIALNO, --物料编码
-//                       MATERIAL_L.FNAME AS FMATERIALNAME, --物料名称
-//                       MATERIAL_L.FSPECIFICATION AS FSPE, --规格型号
-//                       UNIT_L.FNAME AS UNITID, --计量单位
-//                       OUTENTRY.FREALQTY AS QCQTY, --期初数量
-//                       (OUTENTRY.FREALQTY * OUTENTRY_F.FSALCOSTPRICE) AS QCAMOUNT --期初余额
-//                  FROM T_SAL_INITOUTSTOCK OUTSTOCK
-//                 INNER JOIN T_SAL_INITOUTSTOCKENTRY OUTENTRY
-//                    ON OUTSTOCK.FID = OUTENTRY.FID
-//                 INNER JOIN T_SAL_INITOUTSTOCKENTRY_F OUTENTRY_F
-//                    ON OUTENTRY_F.FENTRYID = OUTENTRY.FENTRYID
-//                 INNER JOIN T_SAL_INITOUTSTOCKENTRY_R OUTENTRY_R
-//                    ON OUTENTRY_R.FENTRYID = OUTENTRY.FENTRYID
-//                 INNER JOIN T_BD_CUSTOMER CUST
-//                    ON CUST.FCUSTID  = OUTSTOCK.FCUSTOMERID
-//                 INNER JOIN T_BD_CUSTOMER_L CUST_L
-//                    ON CUST_L.FCUSTID = CUST.FCUSTID
-//                 INNER JOIN T_BD_MATERIAL MATERIAL
-//                    ON MATERIAL.FMASTERID = OUTENTRY.FMATERIALID
-//                 INNER JOIN T_BD_MATERIAL_L MATERIAL_L
-//                    ON MATERIAL_L.FMATERIALID = MATERIAL.FMATERIALID
-//                 INNER JOIN T_BD_MATERIALBASE MATERIALBASE
-//                    ON MATERIALBASE.FMATERIALID = MATERIAL.FMATERIALID
-//                 INNER JOIN T_BD_UNIT UNIT
-//                    ON UNIT.FUNITID = MATERIALBASE.FBASEUNITID
-//                 INNER JOIN T_BD_UNIT_L UNIT_L
-//                    ON UNIT_L.FUNITID = UNIT.FUNITID
-//                 WHERE MATERIAL.FNUMBER >= '{2}'
-//                   AND MATERIAL.FNUMBER <= '{3}'
-//                   AND CUST.FNUMBER >= '{4}'
-//                   AND CUST.FNUMBER <= '{5}'
-//                   AND OUTSTOCK.FBILLTYPEID = '5518f60aee8191') A
-//         GROUP BY A.FFINDATE,
-//                  A.FMATERIALNO,
-//                  A.FMATERIALNAME,
-//                  A.FSPE,
-//                  A.UNITID,
-//                  A.FCUSTNO,
-//                  A.FCUSTNAME) QC
-// GROUP BY QC.FFINDATE, QC.FMATERIALNO, QC.FMATERIALNAME, QC.FSPE, QC.UNITID,QC.FCUSTNO,QC.FCUSTNAME", tempTable, dyFilter["F_Ls_StartDate"].ToString(), startMaterial["number"].ToString(), endMaterial["number"].ToString(), startCustomer["number"].ToString(), endCustomer["number"].ToString());
             DBUtils.Execute(base.Context, strSql_gj);
         }
         #endregion
