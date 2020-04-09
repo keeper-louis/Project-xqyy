@@ -5,6 +5,6 @@ C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Louis.K3.SCM.App.Report.pdb
 D:\Projects\Louis.K3.SCM.App.Report\Louis.K3.SCM.App.Report\obj\Debug\Louis.K3.SCM.App.Report.csprojResolveAssemblyReference.cache
 D:\Projects\Louis.K3.SCM.App.Report\Louis.K3.SCM.App.Report\obj\Debug\Louis.K3.SCM.App.Report.dll
 D:\Projects\Louis.K3.SCM.App.Report\Louis.K3.SCM.App.Report\obj\Debug\Louis.K3.SCM.App.Report.pdb
-D:\Projects\GitRepo\Project-xqyy\Louis.K3.SCM.App.Report\Louis.K3.SCM.App.Report\obj\Debug\Louis.K3.SCM.App.Report.csprojResolveAssemblyReference.cache
 D:\Projects\GitRepo\Project-xqyy\Louis.K3.SCM.App.Report\Louis.K3.SCM.App.Report\obj\Debug\Louis.K3.SCM.App.Report.dll
 D:\Projects\GitRepo\Project-xqyy\Louis.K3.SCM.App.Report\Louis.K3.SCM.App.Report\obj\Debug\Louis.K3.SCM.App.Report.pdb
+D:\Projects\GitRepo\Project-xqyy\Louis.K3.SCM.App.Report\Louis.K3.SCM.App.Report\obj\Debug\Louis.K3.SCM.App.Report.csprojResolveAssemblyReference.cache

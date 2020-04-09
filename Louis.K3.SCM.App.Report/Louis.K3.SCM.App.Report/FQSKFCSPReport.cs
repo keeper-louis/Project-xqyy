@@ -380,7 +380,8 @@ INTO {1}
                    AND CUST.FNUMBER >= '{4}'
                    AND CUST.FNUMBER <= '{5}'
                    AND OUTSTOCK.FBILLTYPEID = '5518f5ceee8053'
-                   AND OUTSTOCK.FBILLNO <> 'xs72210') A
+                   AND OUTSTOCK.FBILLNO <> 'xs72210'
+                   AND OUTENTRY.FSEQ <> 1) A
          GROUP BY A.FFINDATE,
                   A.FMATERIALNO,
                   A.FMATERIALNAME,
